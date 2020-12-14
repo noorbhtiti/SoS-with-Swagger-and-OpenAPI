@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from flask import Flask, render_template, request
 from flask_restful import Resource, Api
 from flasgger import *
@@ -20,19 +19,14 @@ app.config['SWAGGER'] = {
 apikey = 'e8e4ff8f8290aee90e6800ec0eeb245f'
 
 
-class getByCity(Resource):
-    def get(self):
-       # city = str(request.args.get('city'))
-       # source = urllib.request.urlopen(
-        #    'http://127.0.0.1:8080/test')
-        #json.load(source)
-       # print(list_of_data)
-        #print(source)
-        return
+@app.route("/<city>")
+def api1(city):
+    # city = str(request.args.get('city'))
+    source = urllib.request.urlopen('http://127.0.0.1:5050/' + city).read()
+    temp = json.loads(source)
+    slut = {"temp":str(temp)}
+    return slut
 
-
-#api.add_resource(getByCity, '/')
 
 if __name__ == '__main__':
     app.run(debug=True)
-

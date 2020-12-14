@@ -19,9 +19,14 @@ app.config['SWAGGER'] = {
 apikey = 'e8e4ff8f8290aee90e6800ec0eeb245f'
 
 
-@app.route("/test")
-def hello():
-    return "Hello World"
+@app.route("/<city>")
+def api2(city):
+    source = urllib.request.urlopen('http://127.0.0.1:8080/' + city).read()
+    list_of_data = json.loads(source)
+    tempinc = ((list_of_data['main']['temp']) - 273.15)
+    temp = ("%.2f" % tempinc)
+    return temp
+
 
 if __name__ == '__main__':
-    app.run(debug=True, host='127.0.0.1', port=8080)
+    app.run(debug=True, host='127.0.0.1', port=5050)
