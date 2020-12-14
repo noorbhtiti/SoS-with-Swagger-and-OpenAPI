@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from flask import Flask, render_template, request
 from flask_restful import Resource, Api
 from flasgger import *
@@ -34,3 +35,4 @@ class getByCity(Resource):
 
 if __name__ == '__main__':
     app.run(debug=True)
+
