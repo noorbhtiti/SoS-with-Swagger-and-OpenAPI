@@ -27,7 +27,7 @@ class getByCity(Resource):
         list_of_data = json.loads(source)
         tempinc = ((list_of_data['main']['temp']) - 273.15)
         temp = ("%.2f" % tempinc)
-        # data for variable list_of_data
+        # data for variable list_of_data :)
         data = {
             "name": str(list_of_data['name']),
             "country_code": str(list_of_data['sys']['country']),
