@@ -19,14 +19,46 @@ app.config['SWAGGER'] = {
 apikey = 'e8e4ff8f8290aee90e6800ec0eeb245f'
 
 
-@app.route("/<city>")
-def api1(city):
-    # city = str(request.args.get('city'))
-    source = urllib.request.urlopen('http://127.0.0.1:5050/' + city).read()
-    temp = json.loads(source)
-    slut = {"temp":str(temp)}
-    return slut
+class API3(Resource):
+    def get(self):
+        """test
+       It works also with swag_from, schemas and spec_dict
+       ---
+       parameters:
+         - in: query
+           name: city
+           type: string
+           required: true
+           schema:
+             type: string
+           example: lulea
+       responses:
+         200:
+           description: successful getting the weather
+           content:
+             application/json:
+               schema:
+                 type: object
+                 properties:
+                   temp:
+                     type: string
+               examples:
+                 0:
+                   value:
+                     {
+                            "temp":"1.00"
+                     }
+                 """
 
+        city = str(request.args.get('city'))  ## /?city=stockholm
+        source = urllib.request.urlopen('http://127.0.0.1:5050/?city=' + city).read()
+        list_of_data = json.loads(source)
+        print(list_of_data)
+        tempinc = {"temp": str(list_of_data)}
+        return tempinc
+
+
+api.add_resource(API3, '/')
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -16,17 +16,19 @@ app.config['SWAGGER'] = {
     'uiversion': 2
 }
 
-apikey = 'e8e4ff8f8290aee90e6800ec0eeb245f'
+
+class API2(Resource):
+    def get(self):
+        city = str(request.args.get('city'))  ## /?city=stockholm
+        source = urllib.request.urlopen('http://127.0.0.1:8080/?city=' + city).read()
+        list_of_data = json.loads(source)
+        print(list_of_data)
+        tempinc = ((list_of_data['main']['temp']) - 273.15)
+        temp = ("%.2f" % tempinc)
+        return temp
 
 
-@app.route("/<city>")
-def api2(city):
-    source = urllib.request.urlopen('http://127.0.0.1:8080/' + city).read()
-    list_of_data = json.loads(source)
-    tempinc = ((list_of_data['main']['temp']) - 273.15)
-    temp = ("%.2f" % tempinc)
-    return temp
-
+api.add_resource(API2, '/')
 
 if __name__ == '__main__':
     app.run(debug=True, host='127.0.0.1', port=5050)
