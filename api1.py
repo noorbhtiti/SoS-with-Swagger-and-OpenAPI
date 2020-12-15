@@ -21,6 +21,7 @@ apikey = 'e8e4ff8f8290aee90e6800ec0eeb245f'
 
 class API3(Resource):
     def get(self):
+        
         """test
        It works also with swag_from, schemas and spec_dict
        ---
@@ -46,15 +47,19 @@ class API3(Resource):
                  0:
                    value:
                      {
-                            "temp":"1.00"
+                            "temp": "1.00",
+                            "country": "SE",
+                            "name": "Lulea"
                      }
                  """
 
         city = str(request.args.get('city'))  ## /?city=stockholm
         source = urllib.request.urlopen('http://127.0.0.1:5050/?city=' + city).read()
-        list_of_data = json.loads(source)
-        print(list_of_data)
-        tempinc = {"temp": str(list_of_data)}
+        data = json.loads(source)
+        print(data)
+        tempinc = {"name" : (str(data['name'])),
+                   "country" : (str(data['country'])),
+                   "temp" : (str(data['temp']))+' c'}
         return tempinc
 
 

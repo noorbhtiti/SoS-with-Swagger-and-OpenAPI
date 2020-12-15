@@ -25,7 +25,10 @@ class API2(Resource):
         print(list_of_data)
         tempinc = ((list_of_data['main']['temp']) - 273.15)
         temp = ("%.2f" % tempinc)
-        return temp
+        data = {"name":(str(list_of_data['name'])),
+                "country" : (str(list_of_data['sys']['country'])),
+                "temp" : str(temp)} 
+        return data
 
 
 api.add_resource(API2, '/')
