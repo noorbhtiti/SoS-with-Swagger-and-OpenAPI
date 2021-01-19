@@ -20,11 +20,14 @@ apikey = 'e8e4ff8f8290aee90e6800ec0eeb245f'
 
 
 @app.route("/<city>")
+@swag_from("apiSpec1.yaml")
 def api1(city):
+    
     # city = str(request.args.get('city'))
     source = urllib.request.urlopen('http://127.0.0.1:5050/' + city).read()
     temp = json.loads(source)
     slut = {"temp":str(temp)}
+    
     return slut
 
 
