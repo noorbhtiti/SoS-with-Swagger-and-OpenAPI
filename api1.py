@@ -59,7 +59,6 @@ class API3(Resource):
                             "name": "Lulea"
                      }
                  """
-
         city = str(request.args.get('city'))  ## /?city=stockholm
         source = urllib.request.urlopen('http://127.0.0.1:5050/?city=' + city).read()
         data = json.loads(source)
