@@ -4,7 +4,12 @@ import APILink from './APILink.js'
 const Sidebar = props => {
   let organizationConfig = props.organizationConfig
   let apiLinks = []
-
+  apiLinks.push(<APILink
+    key="1"
+    apiLinkData="Api1"
+    updateDefinitionLink="http://127.0.0.1:5000/apispec_1.json"
+  />
+  )
   if (props.definitionList === null) {
       props.getOrganizationData(organizationConfig.orgName)
   } else {

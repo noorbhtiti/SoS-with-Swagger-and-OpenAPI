@@ -8,6 +8,7 @@ import '../node_modules/swagger-ui/dist/swagger-ui.css'
 class App extends Component {
   constructor(props) {
     super(props);
+    let apis = ['Swagger Petstore', 'Simple Inventory API', 'Test REST API'];
     this.state = {
       organizationConfig: null,
       definitionList: null,

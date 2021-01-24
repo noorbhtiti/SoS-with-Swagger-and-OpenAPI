@@ -7,7 +7,7 @@
 .side-bar {
   display: flex;
   flex-direction: column;
-  width: 15vw;
+  width: 20vw;
   height: 100vh;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1), 0 2px 5px rgba(0,0,0,0.2);
 }
@@ -19,7 +19,8 @@
   padding: 10px;
   color: whitesmoke;
   background-color: #2d383a;
-  border-bottom: 5px solid crimson;
+  border-bottom: 5px solid blue;
+  border-top: 5px solid blue;
 }
 
 .side-bar-header h1 {
@@ -28,7 +29,7 @@
 }
 
 .side-bar-body {
-  padding-left: 10px;
+  padding-left: 0px;
 }
 
 #api-data {
