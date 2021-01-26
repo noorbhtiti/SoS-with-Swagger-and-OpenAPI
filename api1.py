@@ -24,7 +24,7 @@ apikey = 'e8e4ff8f8290aee90e6800ec0eeb245f'
 
 
 
-class API3(Resource):
+class API1(Resource):
     #@app.route("/")
     @cross_origin()
     def get(self):
@@ -69,7 +69,7 @@ class API3(Resource):
         return tempinc
 
 
-api.add_resource(API3, '/')
+api.add_resource(API1, '/')
 
 if __name__ == '__main__':
     app.run(debug=True)

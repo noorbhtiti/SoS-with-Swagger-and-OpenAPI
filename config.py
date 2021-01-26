@@ -31,12 +31,11 @@ class api3:
         return data
 
 def main():
-     
      a3 = api3()
      a2 = api2(a3)
      a1 = api1(a2)
 
-     print(a1.get('stockholm'))
+     print(a1.get('lulea'))
 
 if __name__ == "__main__":
     main()
