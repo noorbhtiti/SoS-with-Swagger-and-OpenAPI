@@ -15,7 +15,11 @@ import urllib.request
 
 class Testing:
     def __init__(self):
-        pass
+        self.requestError = False
+        self.typeError = False
+        self.semanticError = False
+        self.uniError = False
+        
 
     def test(self, apiArr):
         a1 = apiArr[0]
@@ -24,8 +28,12 @@ class Testing:
         app = Flask(__name__)
 
         with app.app_context():
-            with app.test_request_context('http://127.0.0.1:8080/?city=dubai'):
-                a1.get(self)
+            with app.test_request_context('http://127.0.0.1:8080/?city=stockholm'):
+                try:
+                    a1.get(self)
+                except urllib.error.URLError:
+                    self.requestError = True
+                    print("requestError =", self.requestError)
 
 def main():
     
