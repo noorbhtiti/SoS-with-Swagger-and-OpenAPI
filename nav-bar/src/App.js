@@ -1,27 +1,61 @@
 import React, { Component } from 'react';
-import './App.css'
-import SwaggerUI from 'swagger-ui';
-import Config from './organization_config.json'; //not needed???
+import SwaggerUI from 'swagger-ui-react';
+import Config from './organization_config.json';
 import Sidebar from './Sidebar.js'
-import '../node_modules/swagger-ui/dist/swagger-ui.css'
 
 class App extends Component {
   constructor(props) {
     super(props);
-    let apis = ['Swagger Petstore', 'Simple Inventory API', 'Test REST API'];
     this.state = {
-      organizationConfig: null,
-      definitionList: null,
-      definitionLink: "http://127.0.0.1:5000/apispec_1.json",
+        organizationConfig: null,
+        definitionList: null,
+        definitionLink: "http://127.0.0.1:5000/apispec_1.json"
+      }
+      this.swaggerhub = this.swaggerhub.bind(this)
+      this.getOrganizationData = this.getOrganizationData.bind(this)
+      this.updateDefinitionLink = this.updateDefinitionLink.bind(this)
     }
-    this.swaggerhub = this.swaggerhub.bind(this)
-    this.getOrganizationData = this.getOrganizationData.bind(this)
+
+  componentWillMount() {
+    this.setState({
+      organizationConfig:  Config.orgData,
+    })
   }
 
-  componentDidMount() {
-    SwaggerUI({
-      domNode: document.getElementById("api-data"),
-      url: this.state.definitionLink
+  swaggerhub(inputMethod, inputResource, inputParams) {
+    let url = ""
+    if (inputParams) {
+      url = "https://api.swaggerhub.com/apis/" + inputResource + "?" + inputParams
+    } else {
+      url = "https://api.swaggerhub.com/apis/" + inputResource
+    }
+	url = "https://api.swaggerhub.com/apis/SoS_Temperature/"
+    
+    return fetch(url, {
+        method: inputMethod
+    }).then(response => {
+      if (response.ok) {
+        return response.json()
+      } throw new Error('There was an issue requesting the API')
+    }).then(json => {
+      return json
+    })
+  }
+
+  getOrganizationData(organization) {
+    let inputParams = "page=0&limit=10&sort=NAME&order=ASC"
+    let inputResource = organization;
+  
+    this.swaggerhub('GET', inputResource, inputParams).then(response => {
+      this.setState({
+        definitionList: response.apis
+      })
+    })
+  }
+
+  updateDefinitionLink(newLink) {
+    this.setState({
+      definitionLink: newLink
     })
   }
 
@@ -31,51 +65,18 @@ class App extends Component {
         <Sidebar 
           organizationConfig={this.state.organizationConfig}
           definitionList={this.state.definitionList}
+          updateDefinitionLink={this.updateDefinitionLink}
           getOrganizationData={this.getOrganizationData}
         />
-        <div id="api-data" />
+        
+        <div id="api-data">
+          <SwaggerUI 
+            url={this.state.definitionLink}
+            docExpansion="list"
+          />
+        </div>
       </div>
     );
-  }
- 
-	swaggerhub(inputMethod, inputResource, inputParams) { //NOT NEEDED??? pull from swaggerhub
-	  let url = ""
-	  if (inputParams) {
-		  url = "https://api.swaggerhub.com/apis/" + inputResource + "?" + inputParams
-	  } else {
-		  url = "https://api.swaggerhub.com/apis/" + inputResource
-	  }
-	  
-	  return fetch(url, {
-		  method: inputMethod
-	  }).then(response => {
-		if (response.ok) {
-		  return response.json()
-		} throw new Error('There was an issue requesting the API')
-	  }).then(json => {
-		  return json
-	  })
-  }
-  getOrganizationData(organization) { //NOT NEEDED? Formatation for swaggerhub
-    let inputParams = "page=0&limit=20&sort=NAME&order=ASC"
-    let inputResource = organization;
-  
-    this.swaggerhub('GET', inputResource, inputParams).then(response => {
-      this.setState({
-        definitionList: response.apis
-      })
-    })
-  }
-  componentWillMount() { //for config mount?? NOT NEEDED???
-    this.setState({
-      organizationConfig:  Config.orgData,
-    })
-  }
-
-  updateDefinitionLink(newLink) { //For api links
-    this.setState({
-      definitionLink: newLink
-    })
   }
 }
 

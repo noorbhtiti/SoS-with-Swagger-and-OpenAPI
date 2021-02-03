@@ -2,8 +2,8 @@
 import React from 'react';
 
 const APILink = props => {
-    let name = "Api1"
-    let apiLink = "http://127.0.0.1:5000/apispec_1.json"
+    let name = props.apiLinkData.name
+    let apiLink = props.apiLinkData.properties[0].url
 
     function handleClick() {
       props.updateDefinitionLink(apiLink)

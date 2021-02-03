@@ -16,7 +16,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px;
+  padding: 100px;
   color: whitesmoke;
   background-color: #2d383a;
   border-bottom: 5px solid blue;
@@ -25,7 +25,7 @@
 
 .side-bar-header h1 {
   margin: 0;
-  font-size: 36pt;
+  font-size: 15pt;
 }
 
 .side-bar-body {
