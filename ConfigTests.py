@@ -1,12 +1,12 @@
 import json
 import urllib.request
 
-def TestTags(city,tags):
-	# TestTags(string,array)
+def TestTags(city,tags,api):
+	# TestTags(string,array,URL)
 	#
 	# iterates through tags in array and see if the tags match pulled data
 	# if tag is not found on surface level in json it tests explicit nested tags
-	source = urllib.request.urlopen('http://127.0.0.1:8080/?city=' + city).read()
+	source = urllib.request.urlopen(api+'?city=' + city).read()
 	data = json.loads(source)
 	for i in range(len(tags)):
 		print("testing tag " + tags[i]+"...")
@@ -18,5 +18,6 @@ def TestTags(city,tags):
 
 
 # example
+api3 = 'http://127.0.0.1:8080/'
 taglist = ['name','timezone','temp']
-TestTags('Oslo',taglist)
+TestTags('Oslo',taglist,api3)
