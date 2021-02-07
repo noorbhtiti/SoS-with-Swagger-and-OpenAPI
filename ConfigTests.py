@@ -11,9 +11,9 @@ def TestTags(city,tags,api):
 	for i in range(len(tags)):
 		print("testing tag " + tags[i]+"...")
 		if tags[i] not in data:
-			if tags[i] not in data['main']:
-				if tags[i] not in data['sys']:
-					raise ValueError(tags[i] + " is not in the resulting data!")
+			if "main" in data and tags[i] not in data['main']:
+					if 'sys' in data and tags[i] not in data['sys']:
+						raise ValueError(tags[i] + " is not in the resulting data!")
 	print("All tags match in data. Compability OK")
 
 
