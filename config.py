@@ -41,7 +41,8 @@ class api3:
     def __init__(self):
         self.apikey = 'e8e4ff8f8290aee90e6800ec0eeb245f'
 
-    # 'https://www.metaweather.com/api/location/search/?query=' 'https://api.openweathermap.org/data/2.5/weather?q='  + '&appid=' + self.apikey
+    # 'https://www.metaweather.com/api/location/search/?query=' 'https://api.openweathermap.org/data/2.5/weather?q='
+    # + '&appid=' + self.apikey
     def get(self, city):
         source = urllib.request.urlopen(
             'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + self.apikey).read()
