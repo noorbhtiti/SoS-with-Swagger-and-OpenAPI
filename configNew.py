@@ -14,43 +14,57 @@ import json
 import urllib.request
 
 class Testing:
-    def __init__(self):
+    def __init__(self, apiArr, api1DescAddress):
         self.requestError = False
         self.typeError = False
         self.semanticError = False
         self.uniError = False
+        self.a1 = apiArr[0]
+        self.a2 = apiArr[1]
+        self.a3 = apiArr[2]
+        self.api1DescAddress = api1DescAddress
         
 
-    def test(self, apiArr):
-        a1 = apiArr[0]
-        a2 = apiArr[1]
-        a3 = apiArr[2]
+    def testRequest(self, api1Address):
+        
         app = Flask(__name__)
 
         with app.app_context():
             with app.test_request_context('http://127.0.0.1:8080/?city=2'):
                 try:
-                    a3.get(self)
+                    self.a1.get(self)
                 except urllib.error.URLError:
                     self.requestError = True
                     
                     print("requestError:", self.requestError)
 
+    def tagSearch(self, api1DescAddress):
+        taglist = [['in'], ['name'], ['type'], ['example']]
+
+        source = urllib.request.urlopen(api1DescAddress).read()
+        data = json.loads(source)
+
+        for x in range(len(taglist)):
+            param = data['paths']['/']['get']['parameters'][0][taglist[x][0]]
+            taglist[x].append(param)
+        
+        print(taglist)
+        
+
 def main():
-    
-    
     exec('api1')
     exec('api2')
     exec('api3')
     
     apiArr = [api1.API1, api2.API2, api3.API3]
 
-    t = Testing()
+    api1Address = 'http://127.0.0.1:5000'
+    api1DescAddress = 'http://api.swaggerhub.com/apis/SoS_Temperature/API1/0.0.1'
+    
+    t = Testing(apiArr, api1DescAddress)
 
-    t.test(apiArr)
-
-
-
+    t.testRequest(api1Address)
+    t.tagSearch(api1DescAddress)
 
 if __name__ == "__main__":
     main()

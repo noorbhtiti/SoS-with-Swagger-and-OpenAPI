@@ -25,9 +25,9 @@ class API2(Resource):
         print(list_of_data)
         tempinc = ((list_of_data['main']['temp']) - 273.15)
         temp = ("%.2f" % tempinc)
-        data = {"name":(str(list_of_data['name'])),
-                "country" : (str(list_of_data['sys']['country'])),
-                "temp" : str(temp)} 
+        data = {"name": (str(list_of_data['name'])),
+                "country": (str(list_of_data['sys']['country'])),
+                "temp": str(temp)}
         return data
 
 
