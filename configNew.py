@@ -28,16 +28,13 @@ class Testing:
         app = Flask(__name__)
 
         with app.app_context():
-            with app.test_request_context('http://127.0.0.1:8080/?city=lulea'):
+            with app.test_request_context('http://127.0.0.1:8080/?city=2'):
                 try:
                     a3.get(self)
                 except urllib.error.URLError:
-                    if(api3.request.args.get('city') == str):
-                        self.typeError = True
-                    else:    
-                        self.requestError = True
+                    self.requestError = True
                     
-                    print("requestError: ", self.requestError, "typeError: ", self.typeError)
+                    print("requestError:", self.requestError)
 
 def main():
     
