@@ -1,23 +1,51 @@
 import json
 import urllib.request
+from collections import defaultdict
 
-def TestTags(city,tags,api):
-	# TestTags(string,array,URL)
+def TestTags(city,api_req,api_target,interface):
+	# TestTags(string,array,api_URL_req,api_URL_test,interface to test)
 	#
-	# iterates through tags in array and see if the tags match pulled data
-	# if tag is not found on surface level in json it tests explicit nested tags
-	source = urllib.request.urlopen(api+'?city=' + city).read()
+	# pulls the tags expected from api_req's target interface
+	# then compares data from api_target and check if resulting tags match 
+	apisource = urllib.request.urlopen(api_req).read()
+	apidata = json.loads(apisource)
+	
+
+	print("aquiring taglist from api_req...")
+	tagssource = apidata['paths'][interface]['get']['responses']['200']['content']['application/json']['examples']['0']['value'] #can use this for more test cases later
+	tags = []
+	for x in tagssource:
+		tags.append(x)
+
+	print("success! the source api taglist is: ")
+	print(tags)
+	print("testing compability with api_target data results...")
+
+	source = urllib.request.urlopen(api_target+'?city=' + city).read()
 	data = json.loads(source)
 	for i in range(len(tags)):
 		print("testing tag " + tags[i]+"...")
 		if tags[i] not in data:
-			if "main" in data and tags[i] not in data['main']:
-					if 'sys' in data and tags[i] not in data['sys']:
-						raise ValueError(tags[i] + " is not in the resulting data!")
-	print("All tags match in data. Compability OK")
+			raise ValueError(tags[i] + " is not in the resulting data!")
+	print("all tags from api source match in data from target api. Compability OK")
+
+def TestParams(api_req,api_target):
+	apisource = urllib.request.urlopen(api_req).read()
+	apidata = json.loads(apisource)
+	
+	params = apidata['paths']['/']['get']['parameters'] #can use this for more test cases later
+	print(params)
+	if (params=='string'):
+		print('expected input is string, testing api_target')
+		source = urllib.request.urlopen(api_target+'?city=' + city).read()
+		data = json.loads(source)
+		print(data)
 
 
-# example
-api3 = 'http://127.0.0.1:8080/'
-taglist = ['name','timezone','temp']
-TestTags('Oslo',taglist,api3)
+
+# example test: take expected tags from interface / in api1 and see if api3 results match
+api1_doc = 'http://api.swaggerhub.com/apis/SoS_Temperature/API3/0.0.1'
+api3_url = 'http://127.0.0.1:8080/'
+
+TestTags('Oslo',api1_doc,api3_url,'/')
+#TestParams(api1_doc,api3_url)
