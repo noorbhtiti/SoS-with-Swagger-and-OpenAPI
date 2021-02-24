@@ -7,10 +7,13 @@ def TestTags(city,api_req,api_target,interface):
 	#
 	# pulls the tags expected from api_req's target interface
 	# then compares data from api_target and check if resulting tags match 
+
+	if (interface==None):
+		interface='/'
+	
 	apisource = urllib.request.urlopen(api_req).read()
 	apidata = json.loads(apisource)
 	
-
 	print("aquiring taglist from api_req...")
 	tagssource = apidata['paths'][interface]['get']['responses']['200']['content']['application/json']['examples']['0']['value'] #can use this for more test cases later
 	tags = []
