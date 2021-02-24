@@ -41,8 +41,6 @@ def TestParams(api_req,api_target):
 		data = json.loads(source)
 		print(data)
 
-
-
 # example test: take expected tags from interface / in api1 and see if api3 results match
 api1_doc = 'http://api.swaggerhub.com/apis/SoS_Temperature/API3/0.0.1'
 api3_url = 'http://127.0.0.1:8080/'
