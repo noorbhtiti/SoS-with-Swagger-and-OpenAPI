@@ -14,15 +14,11 @@ import json
 import urllib.request
 
 class Testing:
-    def __init__(self, apiArr, api1DescAddress):
+    def __init__(self):
         self.requestError = False
         self.typeError = False
         self.semanticError = False
         self.uniError = False
-        self.a1 = apiArr[0]
-        self.a2 = apiArr[1]
-        self.a3 = apiArr[2]
-        self.api1DescAddress = api1DescAddress
         
 
     def testRequest(self, api1Address):
@@ -46,7 +42,7 @@ class Testing:
     def tagSearch(self, api1DescAddress, taglist):
         source = urllib.request.urlopen(api1DescAddress).read()
         data = json.loads(source)
-        print(data['paths']['/']['get']['parameters'][0])
+        #print(data['paths']['/']['get']['parameters'][0])
         for x in range(len(taglist)):
             param = data['paths']['/']['get']['parameters'][0][taglist[x][0]]
             if(param == 'query'):
