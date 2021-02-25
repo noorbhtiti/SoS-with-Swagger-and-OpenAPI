@@ -4,8 +4,12 @@
          "req_tags":
             "weather"
             "city"
+         "req_query":
+            "name":
          "from":
             "2"
+         "url":
+            
       "2":
          "req_tags":
          "from":
