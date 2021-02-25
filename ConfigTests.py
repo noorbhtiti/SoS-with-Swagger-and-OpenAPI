@@ -2,7 +2,7 @@ import json
 import urllib.request
 from collections import defaultdict
 
-def TestTags(api_req,api_target,context):
+def TestTags(api_req,api_target,context): #TestTags(api_req,api_target,TEMPLATE)
 	# TestTags(api_URL_req,api_URL_test,get function context)
 	#
 	# pulls the tags (and interfaces) expected from api_req's target interfaces
@@ -66,4 +66,5 @@ api3_url = 'http://127.0.0.1:8080/'
 #SoS_template = \file.json
 
 TestTags(api1_doc,api3_url,'?city=Oslo')
+#TestTags(api1_doc,api3_url,TEMPLATE)
 #TestParams(api1_doc,api3_url)
