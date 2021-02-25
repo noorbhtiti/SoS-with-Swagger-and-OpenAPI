@@ -50,7 +50,7 @@ def TestParams(api_req,api_target):
 		data = json.loads(source)
 		print(data)
 
-def TestConnection():
+#def TestConnection():
 	#retrivar lista av apis från template
 	#testa connection på varje api
 
