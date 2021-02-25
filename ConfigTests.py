@@ -5,7 +5,7 @@ from collections import defaultdict
 def TestTags(api_req,api_target,context):
 	# TestTags(api_URL_req,api_URL_test,get function context)
 	#
-	# pulls the tags expected from api_req's target interface
+	# pulls the tags (and interfaces) expected from api_req's target interfaces
 	# then compares data from api_target and check if resulting tags match 
 	
 	apisource = urllib.request.urlopen(api_req).read()
@@ -32,10 +32,11 @@ def TestTags(api_req,api_target,context):
 	source = urllib.request.urlopen(api_target+context).read()
 	data = json.loads(source)
 	for i in range(len(tags)):
-		print("testing tag " + tags[i]+"...")
+		print("testing tag " + tags[i]+"...",end="")
 		if tags[i] not in data:
 			raise ValueError(tags[i] + " is not in the resulting data!")
-	print("all tags from api source match in data from target api. Compability OK")
+		print("OK")
+	print("all tags from api source match in data from target api. compability OK")
 
 def TestParams(api_req,api_target):
 	apisource = urllib.request.urlopen(api_req).read()
