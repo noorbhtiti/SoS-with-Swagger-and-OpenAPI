@@ -26,32 +26,35 @@ class Testing:
         
 
     def testRequest(self, api1Address):
+        taglist = [['in'], ['name'], ['type'], ['example']]
+        taglist = self.tagSearch(self.api1DescAddress, taglist)
         
+        print(api1Address +'/'+ taglist[0][1] + taglist[1][1] +'='+ taglist[3][1])
+
         app = Flask(__name__)
 
         with app.app_context():
-            with app.test_request_context('http://127.0.0.1:5000/?city=lulea'):
+            with app.test_request_context(api1Address +'/'+ taglist[0][1] + taglist[1][1] +'='+ taglist[3][1]):
                 try:
                     self.a1.get(self)
-                except urllib.error.URLError:
-                    if(api1.request.args.get('city') == str):
-                        self.typeError = True
-                    else:    
-                        self.requestError = True
+                except urllib.error.URLError:  
+                    self.requestError = True
                     
-                    print("requestError: ", self.requestError, "typeError: ", self.typeError)
+                    print("requestError: ", self.requestError)
 
-    def tagSearch(self, api1DescAddress):
-        taglist = [['in'], ['name'], ['type'], ['example']]
 
+    def tagSearch(self, api1DescAddress, taglist):
         source = urllib.request.urlopen(api1DescAddress).read()
         data = json.loads(source)
-
+        print(data['paths']['/']['get']['parameters'][0])
         for x in range(len(taglist)):
             param = data['paths']['/']['get']['parameters'][0][taglist[x][0]]
-            taglist[x].append(param)
-        
-        print(taglist)
+            if(param == 'query'):
+                taglist[x].append('?')
+            else:    
+                taglist[x].append(param)
+        return taglist
+
         
 
 def main():
@@ -62,12 +65,11 @@ def main():
     apiArr = [api1.API1, api2.API2, api3.API3]
 
     api1Address = 'http://127.0.0.1:5000'
-    api1DescAddress = 'http://api.swaggerhub.com/apis/SoS_Temperature/API1/0.0.1'
+    api1DescAddress = 'http://api.swaggerhub.com/apis/SoS_Temperature/API1/0.0.3'
     
     t = Testing(apiArr, api1DescAddress)
 
     t.testRequest(api1Address)
-    t.tagSearch(api1DescAddress)
 
 if __name__ == "__main__":
     main()
