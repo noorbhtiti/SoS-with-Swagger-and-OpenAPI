@@ -23,8 +23,7 @@ def TestTags(api_req, api_target, context):  # TestTags(api_req,api_target,TEMPL
 
     print("aquiring taglist from api_req...")
     tagssource = \
-    apidata['paths'][interfaces[0]]['get']['responses']['200']['content']['application/json']['examples']['0'][
-        'value']  # can use this for more test cases later
+    apidata['paths'][interfaces[0]]['get']['responses']['200']['content']['application/json']['examples']['0']['value']  # can use this for more test cases later
     tags = []
     for x in tagssource:
         tags.append(x)
@@ -86,10 +85,10 @@ def TestConnection():
 
 
 # example test: take expected tags from interface / in api1 and see if api3 results match
-api1_doc = 'http://api.swaggerhub.com/apis/SoS_Temperature/API3/0.0.1'
+api1_doc = 'http://api.swaggerhub.com/apis/SoS_Temperature/API1/0.0.1'
 api3_url = 'http://127.0.0.1:8080/'
 # SoS_template = \file.json
 
 TestTags(api1_doc, api3_url, '?city=Oslo')
 # TestTags(api1_doc,api3_url,TEMPLATE)
-# TestParams(api1_doc,api3_url)
+TestParams(api1_doc,api3_url)

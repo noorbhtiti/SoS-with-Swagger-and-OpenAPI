@@ -1,0 +1,31 @@
+{
+   "apis":{
+      "1":
+         "req_tags"
+            "country"
+            "name"
+            "temp"
+         "from"
+            "2"
+               "http://127.0.0.1:5050"
+         "sourceURL"
+            "http://127.0.0.1:5000"
+              
+      "2":
+         "req_tags"
+            "country"
+            "name"
+            "temp"
+         "from"
+            "3"
+               "http://127.0.0.1:8080"
+         "sourceURL"
+            "http://127.0.0.1:5050"
+
+      "3":
+         "req_tags" 
+
+         "from"
+            "https://api.openweathermap.org/data/2.5/weather?q="
+   }
+}
