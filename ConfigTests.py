@@ -55,7 +55,7 @@ def Testall():
 	with open('api_template.json', 'r') as myfile:
 		data=myfile.read()
 	obj = json.loads(data)
-	TestTags(obj['apis']['1']['from'], obj['apis']['1']['url'], '?city=Oslo', obj['apis']['1']['req_tags'])
+	TestTags(obj['apis']['3']['from'], obj['apis']['3']['url'], '?city=Oslo', obj['apis']['3']['req_tags'])
 
 
 # example test: take expected tags from interface / in api1 and see if api3 results match
