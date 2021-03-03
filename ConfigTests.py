@@ -1,10 +1,28 @@
 import json
+import urllib
 import urllib.request
 import requests
 from collections import defaultdict
 
 
 def TestTags(api_req, api_target, context, tags):  # TestTags(api_req,api_target,TEMPLATE)
+
+    #print("success! the source api taglist is: ")
+    #print(tags)
+
+    source = urllib.request.urlopen(api_target + context)
+    data = json.load(source)
+
+    for x in data:
+        #print("x:" + x)
+        #print(data[x])
+        for i in range(len(tags)):
+            print("testing tag " + tags[i] + "...", end="")
+            if (tags[i] in x):
+                print("FOUND "+tags[i])
+                tags.remove(tags[i])
+    
+def TestTags2(api_req, api_target, context, tags):  # TestTags(api_req,api_target,TEMPLATE)
 
     print("success! the source api taglist is: ")
     print(tags)
@@ -17,7 +35,6 @@ def TestTags(api_req, api_target, context, tags):  # TestTags(api_req,api_target
             raise ValueError(tags[i] + " is not in the resulting data!")
         print("OK")
     print("all tags from api source match in data from target api. compability OK")
-
 
 def TestParams(api_req, api_target):
     apisource = urllib.request.urlopen(api_req).read()
@@ -56,8 +73,11 @@ def Testall():
  with open('api_template.json', 'r') as myfile:
   data=myfile.read()
  obj = json.loads(data)
- TestTags(obj['apis']['2']['from'], obj['apis']['1']['url'], '?city=Oslo', obj['apis']['2']['req_tags'])
-    # loop to get all subtags
+ #print(obj['apis'])
+ for x in obj['apis']:
+    print("CURRENT API: " + x)
+    TestTags(obj['apis']['2']['from'], obj['apis'][x]['url'], '?city=Oslo', obj['apis'][x]['req_tags'])
+ # loop do testtag for each api
 
 
 # example test: take expected tags from interface / in api1 and see if api3 results match
