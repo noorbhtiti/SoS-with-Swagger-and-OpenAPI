@@ -4,33 +4,10 @@ import requests
 from collections import defaultdict
 
 
-def TestTags(api_req, api_target, context):  # TestTags(api_req,api_target,TEMPLATE)
-    # TestTags(api_URL_req,api_URL_test,get function context)
-    #
-    # pulls the tags (and interfaces) expected from api_req's target interfaces
-    # then compares data from api_target and check if resulting tags match
-
-    apisource = urllib.request.urlopen(api_req).read()
-    apidata = json.loads(apisource)
-
-    print("aquiring interfacelist from api_req...")
-    if_source = apidata['paths'].keys()
-    interfaces = []
-    for x in if_source:
-        interfaces.append(x)
-    print("success! the source api interfacelist is: ")
-    print(interfaces)
-
-    print("aquiring taglist from api_req...")
-    tagssource = \
-    apidata['paths'][interfaces[0]]['get']['responses']['200']['content']['application/json']['examples']['0']['value']  # can use this for more test cases later
-    tags = []
-    for x in tagssource:
-        tags.append(x)
+def TestTags(api_req, api_target, context, tags):  # TestTags(api_req,api_target,TEMPLATE)
 
     print("success! the source api taglist is: ")
     print(tags)
-    print("testing compability with api_target data results...")
 
     source = urllib.request.urlopen(api_target + context).read()
     data = json.loads(source)
@@ -54,11 +31,6 @@ def TestParams(api_req, api_target):
         data = json.loads(source)
         print(data)
 
-
-# def TestConnection():
-# retrivar lista av apis från template
-# testa connection på varje
-
 def TestConnection():
     urllist = ["http://127.0.0.1:5000", "http://127.0.0.1:5050", "http://127.0.0.1:8080"]
     for x in urllist:
@@ -78,17 +50,21 @@ def TestConnection():
             break
 
 
-# def Testall(apiarray[]):
-# for i in apiarray:
-#	test1(array[i])
-#	test2(array[i])
+def Testall():
+	# read file
+	with open('api_template.json', 'r') as myfile:
+		data=myfile.read()
+	obj = json.loads(data)
+	TestTags(obj['apis']['1']['from'], obj['apis']['1']['url'], '?city=Oslo', obj['apis']['1']['req_tags'])
 
 
 # example test: take expected tags from interface / in api1 and see if api3 results match
 api1_doc = 'http://api.swaggerhub.com/apis/SoS_Temperature/API1/0.0.1'
 api3_url = 'http://127.0.0.1:8080/'
-# SoS_template = \file.json
+#SoS_template = file.json
 
-TestTags(api1_doc, api3_url, '?city=Oslo')
-# TestTags(api1_doc,api3_url,TEMPLATE)
-TestParams(api1_doc,api3_url)
+
+Testall()
+#TestTags(api1_doc, api3_url, '?city=Oslo')
+#TestTags(api1_doc,api3_url,TEMPLATE)
+#TestParams(api1_doc,api3_url)
