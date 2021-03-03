@@ -2,7 +2,7 @@
    "apis":{
       "3":{
          "url": "http://127.0.0.1:8080/",
-         "from": "http://api.swaggerhub.com/apis/SoS_Temperature/API1/0.0.1",
+         "from": "http://api.swaggerhub.com/apis/SoS_Temperature/API3/0.0.1",
          "req_tags": ["main", "name"]
       }
    }

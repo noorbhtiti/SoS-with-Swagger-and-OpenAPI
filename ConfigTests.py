@@ -59,7 +59,7 @@ def Testall():
 
 
 # example test: take expected tags from interface / in api1 and see if api3 results match
-api1_doc = 'http://api.swaggerhub.com/apis/SoS_Temperature/API1/0.0.1'
+api1_doc = 'http://api.swaggerhub.com/apis/SoS_Temperature/API3/0.0.1'
 api3_url = 'http://127.0.0.1:8080/'
 #SoS_template = file.json
 
