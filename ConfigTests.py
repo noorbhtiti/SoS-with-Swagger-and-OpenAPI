@@ -52,15 +52,17 @@ def TestConnection():
 
 def Testall():
 	# read file
-	with open('api_template.json', 'r') as myfile:
-		data=myfile.read()
-	obj = json.loads(data)
-	TestTags(obj['apis']['3']['from'], obj['apis']['3']['url'], '?city=Oslo', obj['apis']['3']['req_tags'])
+    #TestConnection()
+ with open('api_template.json', 'r') as myfile:
+  data=myfile.read()
+ obj = json.loads(data)
+ TestTags(obj['apis']['2']['from'], obj['apis']['1']['url'], '?city=Oslo', obj['apis']['2']['req_tags'])
+    # loop to get all subtags
 
 
 # example test: take expected tags from interface / in api1 and see if api3 results match
-api1_doc = 'http://api.swaggerhub.com/apis/SoS_Temperature/API3/0.0.1'
-api3_url = 'http://127.0.0.1:8080/'
+#api1_doc = 'http://api.swaggerhub.com/apis/SoS_Temperature/API3/0.0.1'
+#api3_url = 'http://127.0.0.1:8080/'
 #SoS_template = file.json
 
 

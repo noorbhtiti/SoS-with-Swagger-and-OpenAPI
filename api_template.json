@@ -2,8 +2,21 @@
    "apis":{
       "3":{
          "url": "http://127.0.0.1:8080/",
+         "from_url":  "",
+         "from": "",
+         "req_tags": ["temp", "name", "country"]
+      },
+      "2":{
+         "url": "http://127.0.0.1:5050/",
+         "from_url": "http://127.0.0.1:8080/",
          "from": "http://api.swaggerhub.com/apis/SoS_Temperature/API3/0.0.1",
-         "req_tags": ["main", "name"]
+         "req_tags": ["temp", "name", "country"]
+      },
+      "1":{
+         "url": "http://127.0.0.1:5000/",
+         "from_url": "http://127.0.0.1:5050/",
+         "from": "http://api.swaggerhub.com/apis/SoS_Temperature/API2/0.0.1",
+         "req_tags": ["temp", "name", "country"]
       }
    }
 }
