@@ -51,7 +51,44 @@ class Testing:
                 taglist[x].append(param)
         return taglist
 
+
+#def recursive(key, data, wantedTag):
+    #for key in data:
+    #    print(data[key])
+    #    print(len(data[key]))
+    #    if(len(data[key] != 0)
+            
         
+def func1(data, wantedTag):
+    for key,value in data.items():
+        if(key==wantedTag):
+            print("Jag är här")
+            print(value)
+            return str(value)
+        #print (str(key)+'->'+str(value))
+        if type(value) == type(dict()):
+            return func1(value, wantedTag)
+        elif type(value) == type(list()):
+            for val in value:
+                if type(val) == type(str()):
+                    pass
+                elif type(val) == type(list()):
+                    pass
+                else:
+                    return func1(val, wantedTag)
+
+def tagSearch2(api1DescAddress, taglist):
+    source = urllib.request.urlopen(api1DescAddress).read()
+    data = json.loads(source)
+
+    for i in range(len(taglist)):
+        print(taglist[i][0])
+        taglist[i].append(func1(data, taglist[i][0]))
+    print(taglist)
+
+
+    return taglist
+
 
 def main():
     exec('api1')
@@ -62,10 +99,14 @@ def main():
 
     api1Address = 'http://127.0.0.1:5000'
     api1DescAddress = 'http://api.swaggerhub.com/apis/SoS_Temperature/API1/0.0.3'
-    
-    t = Testing(apiArr, api1DescAddress)
 
-    t.testRequest(api1Address)
+    taglist = [['in'], ['name'], ['type'], ['example']]
+    #taglist = tagSearch2(api1DescAddress, taglist)
+    tagSearch2(api1DescAddress, taglist)
+
+   # t = Testing(apiArr, api1DescAddress)
+
+   # t.testRequest(api1Address)
 
 if __name__ == "__main__":
     main()
