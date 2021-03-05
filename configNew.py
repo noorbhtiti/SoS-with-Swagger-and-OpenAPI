@@ -127,7 +127,7 @@ def tagSearch2(apiDescAddress, taglist):
     source = urllib.request.urlopen(apiDescAddress).read()
     data = json.loads(source)
     for i in range(len(taglist)):
-        print((func3(data, taglist[i][0])))
+        print((func2(data, taglist[i][0])))
  
 
 def main():
