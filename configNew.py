@@ -58,13 +58,13 @@ class Testing:
     #    print(len(data[key]))
     #    if(len(data[key] != 0)
             
-        
+
+taglist = [['in'], ['name'], ['type'], ['example']]
 def func1(data, wantedTag):
     for key,value in data.items():
-        if(key==wantedTag):
-            print("Jag är här")
-            print(value)
-            return str(value)
+        
+       # print (value)
+        
         #print (str(key)+'->'+str(value))
         if type(value) == type(dict()):
             return func1(value, wantedTag)
@@ -77,14 +77,68 @@ def func1(data, wantedTag):
                 else:
                     return func1(val, wantedTag)
 
+
+def func2(data, wantedTag):
+    global taglist
+    for key,value in data.items():
+        #print(key, value)
+        #print(wantedTag)
+        #print(key in taglist[wantedTag])
+        if(str(key) == wantedTag):
+            for i in range(len(taglist)):
+                if(taglist[i][0] == str(wantedTag)):
+                    taglist[i].append(str(value))
+                    return
+        #print (str(key)+'->'+str(value))
+        if type(value) == type(dict()):
+            func2(value, wantedTag)
+            
+        elif type(value) == type(list()):
+            
+            for val in value:
+                
+                if type(val) == type(str()):
+                    pass
+                elif type(val) == type(list()):
+                    pass
+                else:
+                    func2(val, wantedTag)
+
+def func3(data, wantedTag):
+    global taglist
+    for key,value in data.items():
+        #print(key, value)
+        #print(wantedTag)
+        #print(key in taglist[wantedTag])
+        if(str(key) == wantedTag):
+            for i in range(len(taglist)):
+                if(taglist[i][0] == str(wantedTag)):
+                    taglist[i].append(str(value))
+                    return
+        #print (str(key)+'->'+str(value))
+        if type(value) == type(dict()):
+            func2(value, wantedTag)
+            
+        elif type(value) == type(list()):
+            
+            for val in value:
+                
+                if type(val) == type(str()):
+                    pass
+                elif type(val) == type(list()):
+                    pass
+                else:
+                    func2(val, wantedTag)              
+
+
 def tagSearch2(api1DescAddress, taglist):
     source = urllib.request.urlopen(api1DescAddress).read()
     data = json.loads(source)
-
     for i in range(len(taglist)):
-        print(taglist[i][0])
-        taglist[i].append(func1(data, taglist[i][0]))
-    print(taglist)
+        
+        #print(taglist[i][0])
+        (func2(data, taglist[i][0]))
+    #print(taglist)
 
 
     return taglist
@@ -100,10 +154,12 @@ def main():
     api1Address = 'http://127.0.0.1:5000'
     api1DescAddress = 'http://api.swaggerhub.com/apis/SoS_Temperature/API1/0.0.3'
 
-    taglist = [['in'], ['name'], ['type'], ['example']]
+    global taglist
     #taglist = tagSearch2(api1DescAddress, taglist)
     tagSearch2(api1DescAddress, taglist)
 
+    
+    print(taglist)
    # t = Testing(apiArr, api1DescAddress)
 
    # t.testRequest(api1Address)
