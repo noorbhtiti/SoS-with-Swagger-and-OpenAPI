@@ -13,41 +13,40 @@ import json
 # urllib.request to make a request to api
 import urllib.request
 
+
 class Testing:
     def __init__(self):
         self.requestError = False
         self.typeError = False
         self.semanticError = False
         self.uniError = False
-        
 
     def testRequest(self, api1Address):
         taglist = [['in'], ['name'], ['type'], ['example']]
         taglist = self.tagSearch(self.api1DescAddress, taglist)
-        
-        print(api1Address +'/'+ taglist[0][1] + taglist[1][1] +'='+ taglist[3][1])
+
+        print(api1Address + '/' + taglist[0][1] + taglist[1][1] + '=' + taglist[3][1])
 
         app = Flask(__name__)
 
         with app.app_context():
-            with app.test_request_context(api1Address +'/'+ taglist[0][1] + taglist[1][1] +'='+ taglist[3][1]):
+            with app.test_request_context(api1Address + '/' + taglist[0][1] + taglist[1][1] + '=' + taglist[3][1]):
                 try:
                     self.a1.get(self)
-                except urllib.error.URLError:  
+                except urllib.error.URLError:
                     self.requestError = True
-                    
-                    print("requestError: ", self.requestError)
 
+                    print("requestError: ", self.requestError)
 
     def tagSearch(self, api1DescAddress, taglist):
         source = urllib.request.urlopen(api1DescAddress).read()
         data = json.loads(source)
-        #print(data['paths']['/']['get']['parameters'][0])
+        # print(data['paths']['/']['get']['parameters'][0])
         for x in range(len(taglist)):
             param = data['paths']['/']['get']['parameters'][0][taglist[x][0]]
-            if(param == 'query'):
+            if (param == 'query'):
                 taglist[x].append('?')
-            else:    
+            else:
                 taglist[x].append(param)
         return taglist
 
@@ -140,7 +139,6 @@ def tagSearch2(api1DescAddress, taglist):
         (func2(data, taglist[i][0]))
     #print(taglist)
 
-
     return taglist
 
 
@@ -148,7 +146,7 @@ def main():
     exec('api1')
     exec('api2')
     exec('api3')
-    
+
     apiArr = [api1.API1, api2.API2, api3.API3]
 
     api1Address = 'http://127.0.0.1:5000'
@@ -162,7 +160,9 @@ def main():
     print(taglist)
    # t = Testing(apiArr, api1DescAddress)
 
-   # t.testRequest(api1Address)
+# t = Testing(apiArr, api1DescAddress)
+
+# t.testRequest(api1Address)
 
 if __name__ == "__main__":
     main()
