@@ -3,6 +3,7 @@ import urllib
 import urllib.request
 import requests
 from collections import defaultdict
+from configNew import *
 
 
 def TestTags(api_req, api_target, context, tags):  # TestTags(api_req,api_target,TEMPLATE)
@@ -16,7 +17,7 @@ def TestTags(api_req, api_target, context, tags):  # TestTags(api_req,api_target
 
     leng = len(tags)
     for i in range(leng):
-        print("(2.", end="")
+        print("(3.", end="")
         print(i, end="")
         print(") testing tag " + tags[i] + "...", end="")
         if (tags[i] in data):
@@ -61,7 +62,7 @@ def TestParams(api_req, api_target, queryname):
     if ((len(api_req) < 1)):
         print("No document url - canceling Parameter test")
         return
-    print("(1) testing if target query matches required type: " + queryname, end="")
+    print("(2) testing if target query matches required type: " + queryname, end="")
     apisource = urllib.request.urlopen(api_req).read()
     apidata = json.loads(apisource)
     params = apidata['paths']['/']['get']['parameters'][0]['type']  # can use this for more test cases later
@@ -73,21 +74,22 @@ def TestParams(api_req, api_target, queryname):
 
 # def TestConnection(api):
 def TestConnection2(url):
+    print("(1) ", end="")
     try:
         resp = requests.get(url)
         if resp.status_code == 200:
-            print(url + " Works!")
+            print(url + " Works! ",end="")
             source = urllib.request.urlopen(url).read()
             try:
                 data = json.loads(source)
-                print("It is Json")
+                print("- data is Json")
             except:
-                return print("Not Json!")
+                return print("- data is not Json!")
         else:
-            print("Server " + url + " is down")
+            print("Server " + url + " is down!")
             return
     except:
-        print("Fel")
+        return
 
 
 def Testall():
@@ -97,21 +99,37 @@ def Testall():
         data = myfile.read()
     obj = json.loads(data)
     # print(obj['apis'])
+    #api1Address = 'http://127.0.0.1:8080'
+    #taglist2 = ['temp']
+    print("\n"+"(1) IS CONNECTION TEST, (2) IS PARAM TEST, (3) IS TAG FIND")
     for x in obj['apis']:
-        print("CURRENT API: " + x)
-        # TestConnection(obj['apis'][x]['url'])
-        # TestParams(obj['apis'][x]['from'],obj['apis'][x]['from_url'],obj['apis'][x]['req_query_type'])
-        # TestTags(obj['apis'][x]['from'], obj['apis'][x]['from_url'], '?city=Oslo', obj['apis'][x]['req_tags'])
+        print("\n")
+        print("TESTING API #" + x)
+        TestConnection2(obj['apis'][x]['url'])  
+        TestParams(obj['apis'][x]['from'],obj['apis'][x]['from_url'],obj['apis'][x]['req_query_type'])
+        #TestTags(obj['apis'][x]['from'], obj['apis'][x]['from_url'], '?city=Oslo', obj['apis'][x]['req_tags'])
+        i, o = 0, 0
+        while(i<len(obj['apis'][x]['req_tags'])):
+            print("(3.", end="")
+            print(i, end="")
+            print(")"+obj['apis'][x]['req_tags'][i] + " = ",end="")
+            array = [obj['apis'][x]['req_tags'][i]]
+            res = tagSearch2(obj['apis'][x]['url'], array)
+            print(res)
+            if (res == False):
+                o = 1
+            i=i+1
+        if(o>0):
+            print("not all tags found, incompatible")
 
-    # loop do testtag for each api
 
 
 # example test: Load from template,
 # no from_url in api3 since need api key for "https://api.openweathermap.org/data/2.5/weather/"
 
-
-# Testall()
+#print(tagSearch2('http://127.0.0.1:5050/',['xvgwre']))
+Testall()
 # TestTags(api1_doc, api3_url, '?city=Oslo')
 # TestTags(api1_doc,api3_url,TEMPLATE)
-url1 = "http://127.0.0.1:5000/"
-TestConnection2(url1)
+#url1 = "http://127.0.0.1:5000/"
+#TestConnection2(url1)
