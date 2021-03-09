@@ -1,17 +1,12 @@
 import json
-import os
-import lib2to3.fixes.fix_execfile
 import urllib.request
-import api1, api2, api3
-from flask import Flask, render_template, request
-from flask_restful import Resource, Api
-from flasgger import *
-from flask_cors import CORS, cross_origin
-# import json to load JSON data to a python dictionary
-import json
+import urllib.request
 
-# urllib.request to make a request to api
-import urllib.request
+from flask import *
+
+import api1
+import api2
+import api3
 
 
 class Testing:
@@ -51,12 +46,12 @@ class Testing:
         return taglist
 
 
-#def recursive(key, data, wantedTag):
-    #for key in data:
-    #    print(data[key])
-    #    print(len(data[key]))
-    #    if(len(data[key] != 0)
-            
+# def recursive(key, data, wantedTag):
+# for key in data:
+#    print(data[key])
+#    print(len(data[key]))
+#    if(len(data[key] != 0)
+
 
 
 def func1(data, wantedTag):
@@ -90,9 +85,9 @@ def func2(data, wantedTag, taglist):
             func2(value, wantedTag, taglist)
             
         elif type(value) == type(list()):
-            
+
             for val in value:
-                
+
                 if type(val) == type(str()):
                     pass
                 elif type(val) == type(list()):
@@ -101,6 +96,7 @@ def func2(data, wantedTag, taglist):
                     func2(val, wantedTag, taglist)
 
 #taglist = [['in'], ['name'], ['type'], ['example'], ['temp']]
+
 
 def func3(data, wantedTag):
     global taglist

@@ -3,20 +3,23 @@
       "1":{
          "url": "http://127.0.0.1:5000/",
          "from_url": "http://127.0.0.1:5050/",
-         "from": "http://api.swaggerhub.com/apis/SoS_Temperature/API2/0.0.1",
-         "req_tags": ["temp", "name", "country"]
+         "from": "http://api.swaggerhub.com/apis/SoS_Temperature/Api2/0.0.1",
+         "req_tags": ["temp", "name", "country"],
+         "req_query_type": "string"
       },
       "2":{
          "url": "http://127.0.0.1:5050/",
          "from_url": "http://127.0.0.1:8080/",
          "from": "http://api.swaggerhub.com/apis/SoS_Temperature/API3/0.0.1",
-         "req_tags": ["temp", "name", "country"]
+         "req_tags": ["temp", "name", "country"],
+         "req_query_type": "string"
       },
       "3":{
          "url": "http://127.0.0.1:8080/",
          "from_url":  "",
          "from": "",
-         "req_tags": ["temp", "name", "country"]
+         "req_tags": ["temp", "name", "country"],
+         "req_query_type": "string"
       }
    }
 }
