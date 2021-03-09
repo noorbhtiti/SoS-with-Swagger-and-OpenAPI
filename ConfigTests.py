@@ -57,10 +57,10 @@ def TestTags2(api_req, api_target, context, tags):  # TestTags(api_req,api_targe
 
 def TestParams(api_req, api_target, queryname):
     if ((len(api_target) < 1)):
-        print("No target url - canceling Parameter test")
+        print("(2) No target url - canceling Parameter test")
         return
     if ((len(api_req) < 1)):
-        print("No document url - canceling Parameter test")
+        print("(2) No document url - canceling Parameter test")
         return
     print("(2) testing if target query matches required type: " + queryname, end="")
     apisource = urllib.request.urlopen(api_req).read()
@@ -112,7 +112,7 @@ def Testall():
         while(i<len(obj['apis'][x]['req_tags'])):
             print("(3.", end="")
             print(i, end="")
-            print(")"+obj['apis'][x]['req_tags'][i] + " = ",end="")
+            print(") "+obj['apis'][x]['req_tags'][i] + " = ",end="")
             array = [obj['apis'][x]['req_tags'][i]]
             res = tagSearch2(obj['apis'][x]['url'], array)
             print(res)
@@ -120,7 +120,7 @@ def Testall():
                 o = 1
             i=i+1
         if(o>0):
-            print("not all tags found, incompatible")
+            print("(3) not all tags found, incompatible")
 
 
 
