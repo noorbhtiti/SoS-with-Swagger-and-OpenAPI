@@ -98,6 +98,7 @@ def func2(data, wantedTag, taglist):
 #taglist = [['in'], ['name'], ['type'], ['example'], ['temp']]
 
 
+
 def func3(data, wantedTag):
     global taglist
     print("hallå")
