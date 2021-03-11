@@ -116,7 +116,7 @@ def func3(data, wantedTag):
         
 
 
-def tagSearch2(apiDescAddress, taglist2):
+def TagFind(apiDescAddress, taglist2):
     
     source = urllib.request.urlopen(apiDescAddress).read()
     data = json.loads(source)
@@ -140,7 +140,7 @@ def main():
 
     taglist2 = ['pressure']
     #taglist = tagSearch2(api1DescAddress, taglist)
-    print(tagSearch2(api1Address, taglist2))
+    print(TagFind(api1Address, taglist2))
 
     
     print(taglist2)

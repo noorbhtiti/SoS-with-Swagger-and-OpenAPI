@@ -3,7 +3,7 @@ import urllib
 import urllib.request
 import requests
 from collections import defaultdict
-from configNew import *
+from configSearch import *
 
 
 def TestTags(api_req, api_target, context, tags):  # TestTags(api_req,api_target,TEMPLATE)
@@ -55,7 +55,7 @@ def TestTags2(api_req, api_target, context, tags):  # TestTags(api_req,api_targe
     print("all tags from api source match in data from target api. compability OK")
 
 
-def TestParams(api_req, api_target, queryname):
+def TestParameters(api_req, api_target, queryname):
     if ((len(api_target) < 1)):
         print("(2) No target url - canceling Parameter test")
         return
@@ -73,7 +73,7 @@ def TestParams(api_req, api_target, queryname):
 
 
 # def TestConnection(api):
-def TestConnection2(url):
+def TestConnection(url):
     print("(1) ", end="")
     try:
         resp = requests.get(url)
@@ -83,13 +83,16 @@ def TestConnection2(url):
             try:
                 data = json.loads(source)
                 print("- data is Json")
+                return True
             except:
-                return print("- data is not Json!")
+                print("- data is not Json!")
+                return False
         else:
             print("Server " + url + " is down!")
-            return
+            return False
     except:
-        return
+        print("Connection error!")
+        return False
 
 
 def Testall():
@@ -105,8 +108,11 @@ def Testall():
     for x in obj['apis']:
         print("\n")
         print("TESTING API #" + x)
-        TestConnection2(obj['apis'][x]['url'])  
-        TestParams(obj['apis'][x]['from'],obj['apis'][x]['from_url'],obj['apis'][x]['req_query_type'])
+         
+        if (TestConnection(obj['apis'][x]['url']) == False):
+            print("SUMMARY: (1) Connection test: failed")
+            continue
+        res = TestParameters(obj['apis'][x]['from'],obj['apis'][x]['from_url'],obj['apis'][x]['req_query_type'])
         #TestTags(obj['apis'][x]['from'], obj['apis'][x]['from_url'], '?city=Oslo', obj['apis'][x]['req_tags'])
         i, o = 0, 0
         while(i<len(obj['apis'][x]['req_tags'])):
@@ -114,14 +120,20 @@ def Testall():
             print(i, end="")
             print(") "+obj['apis'][x]['req_tags'][i] + " = ",end="")
             array = [obj['apis'][x]['req_tags'][i]]
-            res = tagSearch2(obj['apis'][x]['url'], array)
+            res = TagFind(obj['apis'][x]['url'], array)
             print(res)
             if (res == False):
                 o = 1
             i=i+1
+        print("SUMMARY: (1) Connection test: success,",end="")
+        if (res):
+            print(" (2) Parameter test: success,",end="")
+        else:
+            print(" (2) Parameter test: failed,",end="")
         if(o>0):
-            print("(3) not all tags found, incompatible")
-
+            print(" (3) Tags match: failed")
+        else:
+            print(" (3) Tags match: success")
 
 
 # example test: Load from template,

@@ -1,7 +1,7 @@
 {
    "apis":{
       "1":{
-         "url": "http://127.0.0.1:5000/",
+         "url": "http://127.0.0.1:5090/",
          "from_url": "http://127.0.0.1:5050/",
          "from": "http://api.swaggerhub.com/apis/SoS_Temperature/Api2/0.0.1",
          "req_tags": ["temp", "name", "country"],
@@ -19,7 +19,7 @@
          "from_url":  "",
          "from": "",
          "req_tags": ["temp", "name", "country"],
-         "req_query_type": "string"
+         "req_query_type": "string1"
       }
    }
 }
