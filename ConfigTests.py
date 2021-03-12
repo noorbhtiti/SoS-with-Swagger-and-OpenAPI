@@ -58,11 +58,11 @@ def TestTags2(api_req, api_target, context, tags):  # TestTags(api_req,api_targe
 def TestParameters(api_req, api_target, queryname):
     if ((len(api_target) < 1)):
         print("(2) No target url - canceling Parameter test")
-        return
+        return False
     if ((len(api_req) < 1)):
         print("(2) No document url - canceling Parameter test")
-        return
-    print("(2) testing if target query matches required type: " + queryname, end="")
+        return False
+    print("(2) required query type: " + queryname, end="")
     apisource = urllib.request.urlopen(api_req).read()
     apidata = json.loads(apisource)
     params = apidata['paths']['/']['get']['parameters'][0]['type']  # can use this for more test cases later
@@ -112,7 +112,8 @@ def Testall():
         if (TestConnection(obj['apis'][x]['url']) == False):
             print("SUMMARY: (1) Connection test: failed")
             continue
-        res = TestParameters(obj['apis'][x]['from'],obj['apis'][x]['from_url'],obj['apis'][x]['req_query_type'])
+        resp = TestParameters(obj['apis'][x]['from'],obj['apis'][x]['from_url'],obj['apis'][x]['req_query_type'])
+        
         #TestTags(obj['apis'][x]['from'], obj['apis'][x]['from_url'], '?city=Oslo', obj['apis'][x]['req_tags'])
         i, o = 0, 0
         while(i<len(obj['apis'][x]['req_tags'])):
@@ -126,7 +127,7 @@ def Testall():
                 o = 1
             i=i+1
         print("SUMMARY: (1) Connection test: success,",end="")
-        if (res):
+        if (resp == True):
             print(" (2) Parameter test: success,",end="")
         else:
             print(" (2) Parameter test: failed,",end="")
