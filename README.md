@@ -1,4 +1,4 @@
-# Project-g12
+# SoS-with-Swagger-and-OpenAPI
 Swagger/OpenAPI System and System of System compatibility
 
 How To Use:
