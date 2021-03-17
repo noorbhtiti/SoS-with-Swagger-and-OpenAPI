@@ -7,5 +7,6 @@ formated to provide the required tags (see example api_template.json) and from w
 
 The result will connect the different requirements and check that they have valid data coming through according to your template
 
-<img src="https://github.com/JunkZ/Project-g12/blob/master/Activity_diagram.png?raw=true" width="1246" height="1300">
-<img src="https://github.com/JunkZ/Project-g12/blob/master/Class_diagram.png?raw=true" width="1246" height="1300">
+
+![alt text](https://github.com/JunkZ/Project-g12/blob/master/Activity_diagram.png?raw=true)
+![test2](https://github.com/JunkZ/Project-g12/blob/master/Class_diagram.png?raw=true)
