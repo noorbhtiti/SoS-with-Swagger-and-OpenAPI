@@ -7,7 +7,7 @@ How To Use:
 
 (2) Once you have a valid template run the file configTests.py. (might need to run in an virtual enviroment)
 
-(3) For the GUI to work on your own originization you need to create a swaggerhub originization with multiple API's hosted on swaggerhub.com. Then you provide the name of this orginization in the file "organization_config.json". 
+(3) For the GUI to work on your own originization you need to create a swaggerhub originization with multiple API's hosted on swaggerhub.com. Then you provide the name of this orginization in the file "/nav-bar/src/organization_config.json". 
 
 The result will connect the different requirements and check that they have valid data coming through according to your template.
 
