@@ -6,3 +6,6 @@ How To Use:
 formated to provide the required tags (see example api_template.json) and from what required URL its from
 
 The result will connect the different requirements and check that they have valid data coming through according to your template
+
+![alt text](https://github.com/JunkZ/Project-g12/blob/[Class_diagram.png?raw=true)
+![test2](https://github.com/JunkZ/Project-g12/blob/[Activity_diagram.png?raw=true)
